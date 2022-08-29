@@ -16,8 +16,6 @@ test.beforeAll(async() => {
   config = new Configuration();
 
   config.setBatch(Batch);
-
-  config.setWaitBeforeCapture(20000);
   config.setWaitBeforeScreenshots(20000);
   config.setDisableBrowserFetching(true);
   config.addBrowser(1920, 1080, BrowserType.CHROME);
@@ -39,7 +37,6 @@ test.describe('ACME Bank', () => {
     // Verify the full login page loaded correctly.
     await eyes.check('Login window', Target.window().fully());
 
-
     // Perform login.
     await page.locator('id=txtUserID').fill(username);
     await page.locator('id=txtPassword').fill(password);
@@ -55,11 +52,11 @@ test.describe('ACME Bank', () => {
     await page.locator('xpath=//html/body/app-root/div/div[1]/nav/div[1]/div[1]/ul/li/div/div[2]/div/fieldset/ul/li[2]/button').click();
     await eyes.check('After clicking \"Demo Pop:Steve Smith, verified\"', Target.window().fully());
 
-    // Click 'Accept
+    // Click 'Accept'
     await page.locator('xpath=//*[@id="root-container"]/article/header/div[2]/button').click();
     await eyes.check('After clicking \"Accept\"', Target.window().fully());
     
-    await eyes.check('Tasks Page', Target.window().fully());
+    await eyes.check('Tasks Page', Target.window().fully().waitBeforeCapture(50000));
   });
   
   test.afterEach(async () => {
