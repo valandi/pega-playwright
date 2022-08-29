@@ -5,18 +5,18 @@ export let Batch: BatchInfo;
 export let config: Configuration;
 export let Runner: VisualGridRunner;
 
-// TODO: Be sure to update these values 
-const username = "FILL_IN_USERNAME_HERE";
-const password = "FILL_IN_PASSWORD_HERE";
+const username = "cacsr@cosmos";
+const password = "install12345!";
 
 test.beforeAll(async() => {
-  Runner = new VisualGridRunner({ testConcurrency: 25 });
+  Runner = new VisualGridRunner({ testConcurrency: 1 });
 
   Batch = new BatchInfo({name: 'Pega App - Playwright'});
   config = new Configuration();
 
   config.setBatch(Batch);
-  config.setWaitBeforeScreenshots(20000);
+
+  config.setWaitBeforeScreenshots(5000);
   config.setDisableBrowserFetching(true);
   config.addBrowser(1920, 1080, BrowserType.CHROME);
   config.addBrowser(1920, 1080, BrowserType.FIREFOX);
@@ -56,7 +56,8 @@ test.describe('ACME Bank', () => {
     await page.locator('xpath=//*[@id="root-container"]/article/header/div[2]/button').click();
     await eyes.check('After clicking \"Accept\"', Target.window().fully());
     
-    await eyes.check('Tasks Page', Target.window().fully().waitBeforeCapture(50000));
+
+    await eyes.check('Tasks Page', Target.window().fully());
   });
   
   test.afterEach(async () => {
